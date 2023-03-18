@@ -8,5 +8,6 @@ router.get('/:id', userController.getById);
 
 //POST routes
 router.post('/', userController.create);
+router.post('/login', userController.login);
 
 module.exports = router;

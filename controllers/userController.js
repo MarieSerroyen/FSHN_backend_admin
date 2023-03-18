@@ -17,7 +17,9 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
-        return res.status(200).json({status: "success", message: "User fetched successfully.", data: user });
+
+        return res.status(200).json({status: "success", message: "User fetched successfully.", data: user }); 
+
     } catch (error) {
         console.log(error);
         return res.status(500).send({status: "failed", message: "Something went wrong, user not fetched", error: error });
@@ -54,4 +56,40 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, create };
+//POST login user
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        //Check if fields are empty
+        if(!email || !password) {
+            return res.status(404).send({status: "failed", message: "Please fill all fields"});
+        }
+
+        User.findOne({ email: email })
+            .then(user => {
+                if(!user) {
+                    return res.status(404).send({status: "failed", message: "User not found"});
+                } else {
+                    const isMatch = bcrypt.compare(password, user.password);
+        
+                    if(!isMatch) {
+                        return res.status(400).send({status: "failed", message: "Invalid credentials"});
+                    } else {
+                        const jwtToken = jwt.sign({ id: user._id }, "secretToken");
+        
+                        return res.status(200).json({status: "success", message: "User logged in successfully.", data: user, token: jwtToken });
+                    }
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, user not logged in", error: err });
+            });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, user not logged in", error: error });
+    }
+};
+
+module.exports = { getAll, getById, create, login };
