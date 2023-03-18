@@ -13,6 +13,17 @@ const getAll = async (req, res) => {
     }
 };
 
+//GET user by id
+const getById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        return res.status(200).json({status: "success", message: "User fetched successfully.", data: user });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, user not fetched", error: error });
+    }
+};
+
 //POST create company user
 const create = async (req, res) => {
     try {
@@ -43,4 +54,4 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = { getAll, create };
+module.exports = { getAll, getById, create };
