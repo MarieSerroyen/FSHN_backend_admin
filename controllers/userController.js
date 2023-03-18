@@ -16,13 +16,22 @@ const getAll = async (req, res) => {
 //GET user by id
 const getById = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-
-        return res.status(200).json({status: "success", message: "User fetched successfully.", data: user }); 
+        User.findOne({_id: req.params.id})
+            .then(user => {
+                if(!user) {
+                    return res.status(404).send({status: "failed", message: "User not found"});
+                } else {
+                    return res.status(200).json({status: "success", message: "User fetched successfully.", data: user }); 
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, user not fetched", error: err });
+            }
+        );
 
     } catch (error) {
         console.log(error);
-        return res.status(500).send({status: "failed", message: "Something went wrong, user not fetched", error: error });
+        return res.status(500).send({status: "failed", message: "Something went wrong, user not fetched" });
     }
 };
 
