@@ -11,4 +11,7 @@ router.get('/name/:name', passport.authenticate('jwt', {session:false}), brandCo
 //POST routes
 router.post('/', passport.authenticate('jwt', {session:false}), brandController.create);
 
+//PUT routes
+router.put('/:id', passport.authenticate('jwt', {session:false}), brandController.update);
+
 module.exports = router;

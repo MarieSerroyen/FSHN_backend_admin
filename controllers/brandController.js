@@ -68,11 +68,11 @@ const create = async (req, res) => {
         const brand = new Brand({ name, logo, primaryColor, secondaryColor, slogan });
 
         brand.save()
-            .then(user => {
-                return res.status(200).json({status: "success", message: "User created successfully.", data: user });
+            .then(brand => {
+                return res.status(200).json({status: "success", message: "Brand created successfully.", data: brand });
             })
             .catch(err => {
-            return res.status(400).send({status: "failed", message: "Something went wrong, user not created", error: err });
+            return res.status(400).send({status: "failed", message: "Something went wrong, brand not created", error: err });
             });
 
     } catch (error) {
@@ -81,4 +81,25 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = {getAll, getById, getByName, create};
+//UPDATE brand information by id
+const update = async (req, res) => {
+    try {
+        Brand.findByIdAndUpdate({_id: req.params.id}, req.body)
+            .then(brand => {
+                if(!brand) {
+                    return res.status(404).send({status: "failed", message: "Brand not found"});
+                } else {
+                    return res.status(200).json({status: "success", message: "User updated successfully.", data: brand });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, brand not updated", error: err });
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, brand not updated", error: error });
+    }
+};
+
+module.exports = {getAll, getById, getByName, create, update};
