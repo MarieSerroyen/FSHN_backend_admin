@@ -1,6 +1,6 @@
 const Brand = require('../models/Brand');
 
-//GEt all brands
+//GET all brands
 const getAll = async (req, res) => {
     try {
         const brands = await Brand.find();
@@ -8,6 +8,28 @@ const getAll = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).send({status: "failed", message: "Something went wrong, brands not retrieved", error: error });
+    }
+};
+
+//GET brand by id
+const getById = async (req, res) => {
+    try {
+        Brand.findOne({_id: req.params.id})
+            .then(brand => {
+                if(!brand) {
+                    return res.status(404).send({status: "failed", message: "Brand not found"});
+                } else {
+                    return res.status(200).json({status: "success", message: "Brand retrieved successfully.", data: brand });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, brand not retrieved", error: err });
+            }
+        );
+        
+    } catch (error) {  
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, brand not retrieved" });
     }
 };
 
@@ -37,4 +59,4 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = {getAll, create};
+module.exports = {getAll, getById, create};
