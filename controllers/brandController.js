@@ -33,6 +33,28 @@ const getById = async (req, res) => {
     }
 };
 
+//GET brand by name
+const getByName = async (req, res) => {
+    try {
+        Brand.findOne({name: req.params.name})
+            .then(brand => {
+                if(!brand) {
+                    return res.status(404).send({status: "failed", message: "No brand found with this name."});
+                } else {
+                    return res.status(200).json({status: "success", message: "Brand retrieved successfully.", data: brand });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, brand not retrieved", error: err });
+            }
+        );
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, brand not retrieved" });
+    }
+};
+
 //POST new brand information
 const create = async (req, res) => {
     try {
@@ -59,4 +81,4 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = {getAll, getById, create};
+module.exports = {getAll, getById, getByName, create};
