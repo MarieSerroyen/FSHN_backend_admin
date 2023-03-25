@@ -35,6 +35,28 @@ const getById = async (req, res) => {
     }
 };
 
+//GET user by name
+const getByName = async (req, res) => {
+    try {
+        User.findOne({name: req.params.name})
+            .then(user => {
+                if(!user) {
+                    return res.status(404).send({status: "failed", message: "No user found with this name."});
+                } else {
+                    return res.status(200).json({status: "success", message: "User fetched successfully.", data: user });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, user not fetched", error: err });
+            }
+        );
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, user not fetched" });
+    }
+};
+
 //POST create company user
 const create = async (req, res) => {
     try {
@@ -124,4 +146,4 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, create, deleteUser, login };
+module.exports = { getAll, getById, getByName, create, deleteUser, login };
