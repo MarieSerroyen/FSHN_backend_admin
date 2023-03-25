@@ -1,5 +1,16 @@
 const Brand = require('../models/Brand');
 
+//GEt all brands
+const getAll = async (req, res) => {
+    try {
+        const brands = await Brand.find();
+        return res.status(200).json({status: "success", message: "Brands retrieved successfully.", data: brands });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, brands not retrieved", error: error });
+    }
+};
+
 //POST new brand information
 const create = async (req, res) => {
     try {
@@ -26,4 +37,4 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = {create};
+module.exports = {getAll, create};
