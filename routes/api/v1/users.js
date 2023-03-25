@@ -11,6 +11,7 @@ router.get('/name/:name', passport.authenticate('jwt', {session:false}), userCon
 //POST routes
 router.post('/', userController.create);
 router.post('/login', userController.login);
+router.post('/:id', passport.authenticate('jwt', {session:false}), userController.changePassword);
 
 //PUT routes
 

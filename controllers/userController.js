@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const {Validator} = require('node-input-validator');
 
 //GET all users
 const getAll = async (req, res) => {
@@ -146,4 +147,58 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByName, create, deleteUser, login };
+//POST change password user
+const changePassword = async (req, res) => {
+    try {
+        const v = new Validator(req.body, {
+            old_password: 'required',
+            new_password: 'required|minLength:6',
+            confirm_password: 'required|same:new_password'
+        });
+
+        //Check if passwords match
+        const matched = await v.check();
+
+        if (!matched) {
+            return res.status(400).send({status: "failed", message: "Passwords don't match", error: v.errors });
+        }
+
+        const { old_password, new_password, confirm_password } = req.body;
+
+        //Check if fields are empty
+        if(!old_password || !new_password || !confirm_password) {
+            return res.status(404).send({status: "failed", message: "Please fill all fields"});
+        }
+
+        let user = await User.findOne({ _id: req.params.id });
+
+        const isMatch = await bcrypt.compare(old_password, user.password);
+
+        //Check if old password is correct
+        if(!isMatch) {
+            return res.status(400).send({status: "failed", message: "Invalid credentials"});
+        } else {
+            const salt = await bcrypt.genSalt(10);
+
+            user.password = await bcrypt.hash(new_password, salt);
+
+            user.save()
+                .then(user => {
+                    return res.status(200).json({status: "success", message: "Password changed successfully.", data: user });
+                })
+                .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, password not changed", error: err });
+                });
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, password not changed", error: error });
+    }
+};
+
+
+
+
+
+module.exports = { getAll, getById, getByName, create, deleteUser, login, changePassword };
