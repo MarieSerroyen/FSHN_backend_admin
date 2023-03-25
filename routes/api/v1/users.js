@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../../../controllers/userController');
+const passport = require('../../../passport/passport');
 
 //GET routes
 router.get('/', userController.getAll);
@@ -13,6 +14,6 @@ router.post('/login', userController.login);
 //PUT routes
 
 //DELETE routes
-router.delete('/:id', userController.deleteUser);
+router.delete('/:id', passport.authenticate('jwt', {session:false}), userController.deleteUser);
 
 module.exports = router;
