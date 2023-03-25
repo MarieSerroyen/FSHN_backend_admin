@@ -38,14 +38,14 @@ const getById = async (req, res) => {
 //POST create company user
 const create = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, role } = req.body;
 
         //Check if fields are empty
         if(!name || !email || !password) {
             return res.status(404).send({status: "failed", message: "Please fill all fields"});
         }
 
-        const user = new User({ name, email, password });
+        const user = new User({ name, email, password, role });
 
         const salt = await bcrypt.genSalt(10);
 
