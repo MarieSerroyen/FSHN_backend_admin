@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {Validator} = require('node-input-validator');
+const config = require('config');
 
 //GET all users
 const getAll = async (req, res) => {
@@ -131,7 +132,7 @@ const login = async (req, res) => {
                     if(!isMatch) {
                         return res.status(400).send({status: "failed", message: "Invalid credentials"});
                     } else {
-                        const jwtToken = jwt.sign({ id: user._id }, "secretToken");
+                        const jwtToken = jwt.sign({ id: user._id }, config.get('jwt.secret'));
         
                         return res.status(200).json({status: "success", message: "User logged in successfully.", data: user, token: jwtToken });
                     }
