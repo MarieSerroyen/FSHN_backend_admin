@@ -102,4 +102,27 @@ const update = async (req, res) => {
     }
 };
 
-module.exports = {getAll, getById, getByName, create, update};
+//DELETE brand by id
+const deleteBrand = async (req, res) => {
+    try {
+        Brand.findOneAndDelete({_id: req.params.id})
+            .then(brand => {
+                if(!brand) {
+                    return res.status(404).send({status: "failed", message: "Brand not found"});
+                } else {
+                    return res.status(200).json({status: "success", message: "Brand deleted successfully.", data: brand }); 
+                }
+
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, user not deleted", error: err });
+            }
+        );
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, brand not deleted", error: error });
+    }
+};
+
+module.exports = {getAll, getById, getByName, create, update, deleteBrand};

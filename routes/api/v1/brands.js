@@ -14,4 +14,7 @@ router.post('/', passport.authenticate('jwt', {session:false}), brandController.
 //PUT routes
 router.put('/:id', passport.authenticate('jwt', {session:false}), brandController.update);
 
+//DELETE routes
+router.delete('/:id', passport.authenticate('jwt', {session:false}), brandController.deleteBrand);
+
 module.exports = router;
