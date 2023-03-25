@@ -65,6 +65,29 @@ const create = async (req, res) => {
     }
 };
 
+//DELETE user by id
+const deleteUser = async (req, res) => {
+    try {
+        User.findOneAndDelete({_id: req.params.id})
+            .then(user => {
+                if(!user) {
+                    return res.status(404).send({status: "failed", message: "User not found"});
+                } else {
+                    return res.status(200).json({status: "success", message: "User deleted successfully.", data: user }); 
+                }
+
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, user not deleted", error: err });
+            }
+        );
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, user not deleted" });
+    }
+};
+
 //POST login user
 const login = async (req, res) => {
     try {
@@ -101,4 +124,4 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, create, login };
+module.exports = { getAll, getById, create, deleteUser, login };
