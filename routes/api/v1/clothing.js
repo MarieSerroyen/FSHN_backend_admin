@@ -18,5 +18,6 @@ router.put('/colors/:id', passport.authenticate('jwt', {session:false}), clothin
 router.put('/sizes/:id', passport.authenticate('jwt', {session:false}), clothingController.addSizes);
 
 //DELETE routes
+router.delete('/:id', passport.authenticate('jwt', {session:false}), clothingController.deleteClothing);
 
 module.exports = router;

@@ -166,5 +166,26 @@ const addSizes = async (req, res) => {
     }
 };
 
+//DELETE clothing by id
+const deleteClothing = async (req, res) => {
+    try {
+        Clothing.findByIdAndDelete({_id: req.params.id})
+        .then(clothing => {
+            if(!clothing) {
+                return res.status(404).send({status: "failed", message: "Clothing item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Clothing item deleted successfully.", data: clothing });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, clothing item not deleted", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not deleted", error: error });
+    }
+};
 
-module.exports = { getAll, getById, getByBrand, getByCategory, create, update, addColors, addSizes };
+
+module.exports = { getAll, getById, getByBrand, getByCategory, create, update, addColors, addSizes, deleteClothing };
