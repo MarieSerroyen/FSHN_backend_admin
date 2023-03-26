@@ -4,10 +4,10 @@ const Clothing = require('../models/Clothing');
 const getAll = async (req, res) => {
     try {
         const clothing = await Clothing.find(req.query);
-        return res.status(200).json({status: "success", message: "Clothing retrieved successfully.", data: clothing });
+        return res.status(200).json({status: "success", message: "Clothing items retrieved successfully.", data: clothing });
     } catch (error) {
         console.log(error);
-        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not retrieved", error: error });
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing items not retrieved", error: error });
     }
 };
 
@@ -17,19 +17,19 @@ const getById = async (req, res) => {
         Clothing.findOne({_id: req.params.id})
             .then(clothing => {
                 if(!clothing) {
-                    return res.status(404).send({status: "failed", message: "Clothing not found"});
+                    return res.status(404).send({status: "failed", message: "Clothing item not found"});
                 } else {
-                    return res.status(200).json({status: "success", message: "Clothing retrieved successfully.", data: clothing });
+                    return res.status(200).json({status: "success", message: "Clothing item retrieved successfully.", data: clothing });
                 }
             })
             .catch(err => {
-                return res.status(400).send({status: "failed", message: "Something went wrong, clothing not retrieved", error: err });
+                return res.status(400).send({status: "failed", message: "Something went wrong, clothing item not retrieved", error: err });
             }
         );
 
     } catch (error) {
         console.log(error);
-        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not retrieved" });
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing item not retrieved" });
     }
 };
 
@@ -39,19 +39,19 @@ const getByBrand = async (req, res) => {
         Clothing.find({brand: req.params.brand})
             .then(clothing => {
                 if(!clothing) {
-                    return res.status(404).send({status: "failed", message: "No clothing found with this brand."});
+                    return res.status(404).send({status: "failed", message: "No clothing items found with this brand."});
                 } else {
-                    return res.status(200).json({status: "success", message: "Clothing retrieved successfully.", data: clothing });
+                    return res.status(200).json({status: "success", message: "Clothing items retrieved successfully.", data: clothing });
                 }
             })
             .catch(err => {
-                return res.status(400).send({status: "failed", message: "Something went wrong, clothing not retrieved", error: err });
+                return res.status(400).send({status: "failed", message: "Something went wrong, clothing items not retrieved", error: err });
             }
         );
         
     } catch (error) {
         console.log(error);
-        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not retrieved" });
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing items not retrieved" });
     }
 };
 
@@ -61,19 +61,19 @@ const getByCategory = async (req, res) => {
         Clothing.find({category: req.params.category})
             .then(clothing => {
                 if(!clothing) {
-                    return res.status(404).send({status: "failed", message: "No clothing found within this category."});
+                    return res.status(404).send({status: "failed", message: "No clothing items found within this category."});
                 } else {
-                    return res.status(200).json({status: "success", message: "Clothing retrieved successfully.", data: clothing });
+                    return res.status(200).json({status: "success", message: "Clothing items retrieved successfully.", data: clothing });
                 }
             })
             .catch(err => {
-                return res.status(400).send({status: "failed", message: "Something went wrong, clothing not retrieved", error: err });
+                return res.status(400).send({status: "failed", message: "Something went wrong, clothing items not retrieved", error: err });
             }
         );
         
     } catch (error) {
         console.log(error);
-        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not retrieved" });
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing items not retrieved" });
     }
 };
 
@@ -91,16 +91,38 @@ const create = async (req, res) => {
 
         clothing.save()
             .then(clothing => {
-                return res.status(200).json({status: "success", message: "Clothing created successfully.", data: clothing });
+                return res.status(200).json({status: "success", message: "Clothing item created successfully.", data: clothing });
             })
             .catch(err => {
-            return res.status(400).send({status: "failed", message: "Something went wrong, clothing not created", error: err });
+            return res.status(400).send({status: "failed", message: "Something went wrong, clothing item not created", error: err });
             });
 
     } catch (error) {
         console.log(error);
-        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not created", error: error });
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing item not created", error: error });
     }
 };
 
-module.exports = { getAll, getById, getByBrand, getByCategory, create };
+//UPDATE clothing information by id
+const update = async (req, res) => {
+    try {
+        Clothing.findByIdAndUpdate({_id: req.params.id}, req.body)
+        .then(clothing => {
+            if(!clothing) {
+                return res.status(404).send({status: "failed", message: "Clothing item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Clothing item updated successfully.", data: clothing });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, clothing item not updated", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not updated", error: error });
+    }
+};
+
+
+module.exports = { getAll, getById, getByBrand, getByCategory, create, update };

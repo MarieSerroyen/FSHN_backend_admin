@@ -13,6 +13,7 @@ router.get('/category/:category', passport.authenticate('jwt', {session:false}),
 router.post('/', passport.authenticate('jwt', {session:false}), clothingController.create);
 
 //PUT routes
+router.put('/:id', passport.authenticate('jwt', {session:false}), clothingController.update);
 
 //DELETE routes
 

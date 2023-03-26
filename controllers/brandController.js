@@ -89,7 +89,7 @@ const update = async (req, res) => {
                 if(!brand) {
                     return res.status(404).send({status: "failed", message: "Brand not found"});
                 } else {
-                    return res.status(200).json({status: "success", message: "User updated successfully.", data: brand });
+                    return res.status(200).json({status: "success", message: "Brand updated successfully.", data: brand });
                 }
             })
             .catch(err => {
