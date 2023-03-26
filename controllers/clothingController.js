@@ -22,6 +22,28 @@ const getById = async (req, res) => {
     }
 };
 
+//GET clothing by name
+const getByName = async (req, res) => {
+    try {
+        Clothing.findOne({name: req.params.name})
+            .then(clothing => {
+                if(!clothing) { 
+                    return res.status(404).send({status: "failed", message: "No clothing found with this name."});
+                } else {
+                    return res.status(200).json({status: "success", message: "Clothing retrieved successfully.", data: clothing });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, clothing not retrieved", error: err });
+            }
+        );
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not retrieved" });
+    }
+};
+
 //POST new clothing information
 const create = async (req, res) => {
     try {
@@ -48,4 +70,4 @@ const create = async (req, res) => {
     }
 };
 
-module.exports = { getById, create };
+module.exports = { getById, getByName, create };
