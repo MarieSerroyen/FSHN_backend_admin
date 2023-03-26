@@ -6,7 +6,7 @@ const passport = require('../../../passport/passport');
 //GET routes
 
 //POST routes
-
+router.post('/', passport.authenticate('jwt', {session:false}), clothingController.create);
 //PUT routes
 
 //DELETE routes

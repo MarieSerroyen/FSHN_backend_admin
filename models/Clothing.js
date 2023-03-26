@@ -5,6 +5,10 @@ const clothingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    articleNumber: {
+        type: String,
+        required: true
+    },
     image: {
         type: String,
         required: true
@@ -18,7 +22,7 @@ const clothingSchema = new mongoose.Schema({
         required: true
     },
     price: {
-        type: Number,
+        type: String,
         required: true
     },
     materials: {
@@ -26,7 +30,7 @@ const clothingSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: String,
+        type: Array,
         required: true
     },
     brand: {
