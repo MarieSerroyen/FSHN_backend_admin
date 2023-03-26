@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 
 const usersRouter = require('./routes/api/v1/users');
 const brandRouter = require('./routes/api/v1/brands');
+const clothingRouter = require('./routes/api/v1/clothing');
 
 
 mongoose.connect('mongodb://localhost:27017/fshn-backend-admin', {useNewUrlParser: true, useUnifiedTopology: true})
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/brands', brandRouter);
+app.use('/api/v1/clothing', clothingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
