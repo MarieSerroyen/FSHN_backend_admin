@@ -14,7 +14,8 @@ router.post('/', passport.authenticate('jwt', {session:false}), clothingControll
 
 //PUT routes
 router.put('/:id', passport.authenticate('jwt', {session:false}), clothingController.update);
-router.put('/add/:id', passport.authenticate('jwt', {session:false}), clothingController.addColors);
+router.put('/colors/:id', passport.authenticate('jwt', {session:false}), clothingController.addColors);
+router.put('/sizes/:id', passport.authenticate('jwt', {session:false}), clothingController.addSizes);
 
 //DELETE routes
 
