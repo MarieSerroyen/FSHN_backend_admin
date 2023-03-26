@@ -198,8 +198,4 @@ const changePassword = async (req, res) => {
     }
 };
 
-
-
-
-
 module.exports = { getAll, getById, getByName, create, deleteUser, login, changePassword };
