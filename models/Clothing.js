@@ -28,6 +28,10 @@ const clothingSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true
+    },
+    brand: {
+        type: String,
+        required: true
     }
 });
 
