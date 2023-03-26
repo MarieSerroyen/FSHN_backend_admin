@@ -124,5 +124,28 @@ const update = async (req, res) => {
     }
 };
 
+//UPDATE add colors to clothing by id
+const addColors = async (req, res) => {
+    try {
 
-module.exports = { getAll, getById, getByBrand, getByCategory, create, update };
+        Clothing.findByIdAndUpdate({_id: req.params.id}, {$push: {colors: req.body.colors}})
+        .then(clothing => {
+            if(!clothing) {
+                return res.status(404).send({status: "failed", message: "Clothing item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Clothing item updated successfully.", data: clothing });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, clothing item not updated", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing not updated", error: error });
+    }
+};
+
+
+
+module.exports = { getAll, getById, getByBrand, getByCategory, create, update, addColors };
