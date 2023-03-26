@@ -187,5 +187,4 @@ const deleteClothing = async (req, res) => {
     }
 };
 
-
 module.exports = { getAll, getById, getByBrand, getByCategory, create, update, addColors, addSizes, deleteClothing };

@@ -1,18 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
+const createError = require('http-errors');
+const express = require('express');
 const mongoose = require('mongoose');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const cors = require ('cors');
+const config = require('config');
 
 const usersRouter = require('./routes/api/v1/users');
 const brandRouter = require('./routes/api/v1/brands');
 const clothingRouter = require('./routes/api/v1/clothing');
 
 
-mongoose.connect('mongodb://localhost:27017/fshn-backend-admin', {useNewUrlParser: true, useUnifiedTopology: true})
-var app = express();
+mongoose.connect(process.env.conn || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
