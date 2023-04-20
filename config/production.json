@@ -1,0 +1,8 @@
+{
+    "database":{
+        "conn": "mongodb+srv://FSHN:RDp9w12hXC8WMlOJ@fshncluster.int81vs.mongodb.net/?retryWrites=true&w=majority"
+    },
+    "jwt": {
+        "secret": "secretToken"
+    }
+}
