@@ -9,8 +9,16 @@ const clothingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
+    mapImage: {
         type: String,
+        required: true
+    },
+    headImage: {
+        type: String,
+        required: true
+    },
+    subImages: {
+        type: Array,
         required: true
     },
     sizes: {
