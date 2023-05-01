@@ -48,6 +48,10 @@ const clothingSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    stock: {
+        type: Boolean,
+        required: false
     }
 });
 
