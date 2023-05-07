@@ -48,6 +48,10 @@ const clothingSchema = new mongoose.Schema({
     stock: {
         type: Number,
         required: true
+    },
+    store: {
+        type: String,
+        required: true
     }
 });
 

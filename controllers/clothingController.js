@@ -80,10 +80,10 @@ const getByCategory = async (req, res) => {
 //POST new clothing information
 const create = async (req, res) => {
     try {
-        const { name, articleNumber, headImage, subImages, sizes, colors, price, materials, category, brand, description, stock } = req.body;
+        const { name, articleNumber, headImage, subImages, sizes, colors, price, materials, category, brand, description, stock, store } = req.body;
 
         //Check if fields are empty
-        if(!name || !articleNumber || !headImage || !subImages || !sizes || !colors || !price || !materials || !category || !brand || !description || !stock) {
+        if(!name || !articleNumber || !headImage || !subImages || !sizes || !colors || !price || !materials || !category || !brand || !description || !stock || !store) {
             return res.status(404).send({status: "failed", message: "Please fill in required fields"});
         }
 
