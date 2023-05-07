@@ -87,7 +87,7 @@ const create = async (req, res) => {
             return res.status(404).send({status: "failed", message: "Please fill in required fields"});
         }
 
-        const clothing = new Clothing({ name, articleNumber, image, sizes, colors, price, materials, category, brand });
+        const clothing = new Clothing({ name, articleNumber, headImage, subImages, sizes, colors, price, materials, category, brand, description, stock, store });
 
         clothing.save()
             .then(clothing => {

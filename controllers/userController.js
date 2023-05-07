@@ -198,4 +198,48 @@ const changePassword = async (req, res) => {
     }
 };
 
+/*const authenticate =  (req, res) => {
+    //return res.status(200).json({status: "success", message: "User authenticated successfully."});
+    try {
+        const token = req.headers.authorization.substring(7, req.headers.authorization.length);
+        console.log(token);
+
+        if(!token) {
+            return res.status(401).send({status: "failed", message: "No token, authorization denied"});
+        }
+
+        /*const decoded = jwt.verify(token, process.env.jwt_secret||config.get('jwt.secret'));
+
+        req.user = decoded;
+        console.log(decoded.name);*/
+
+        /*jwt.verify(token, config.get('jwt.secret'), (err, decoded) => {
+            if(err) {
+                return res.status(401).send({status: "failed", message: "Token is not valid"});
+            } 
+            
+            User.findById(decoded.id)
+                .then(user => {
+                    if(!user) {
+                        return res.status(404).send({status: "failed", message: "User not found"});
+                    } else {
+                        req.user = user;
+                        console.log(req.user);
+                        //return res.status(200).json({status: "success", message: "User authenticated successfully.", data: user });
+                        
+                    }
+                })
+                .catch(err => {
+                    return res.status(400).send({status: "failed", message: "Something went wrong, user not found", error: err });
+                });
+        });
+
+        next();
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, user not authenticated", error: error });
+    }
+};*/
+
 module.exports = { getAll, getById, getByName, create, deleteUser, login, changePassword };
