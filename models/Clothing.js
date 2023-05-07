@@ -9,10 +9,6 @@ const clothingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    mapImage: {
-        type: String,
-        required: true
-    },
     headImage: {
         type: String,
         required: true
@@ -50,8 +46,8 @@ const clothingSchema = new mongoose.Schema({
         required: true
     },
     stock: {
-        type: Boolean,
-        required: false
+        type: Number,
+        required: true
     }
 });
 
