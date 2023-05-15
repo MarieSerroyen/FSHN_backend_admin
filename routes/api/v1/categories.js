@@ -11,6 +11,7 @@ router.get('/:name', passport.authenticate('jwt', {session:false}), categoryCont
 router.post('/', passport.authenticate('jwt', {session:false}), categoryController.createCategory);
 
 //PUT routes
+router.put('/:id', passport.authenticate('jwt', {session:false}), categoryController.updateCategory);
 
 //DELETE routes
 

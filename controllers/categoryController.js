@@ -52,5 +52,28 @@ const createCategory = async (req, res) => {
     }
 };
 
+//UPDATE category information
+const updateCategory = async (req, res) => {
+    try {
+        Category.findByIdAndUpdate({_id: req.params.id}, req.body)
+        .then(category => {
+            if(!category) {
+                return res.status(404).send({status: "failed", message: "Category item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Category item updated successfully.", data: category });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, category item not updated", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, category not updated", error: error });
+    }
+};
 
-module.exports = { getAll, getByName, createCategory };
+         
+
+
+module.exports = { getAll, getByName, createCategory, updateCategory };
