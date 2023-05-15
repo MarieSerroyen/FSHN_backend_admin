@@ -8,6 +8,10 @@ const categorySchema = new mongoose.Schema({
     image: {
         type: String,
         required: true
+    },
+    store: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Store'
     }
 });
 
