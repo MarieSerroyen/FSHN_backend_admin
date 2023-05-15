@@ -5,6 +5,7 @@ const passport = require('../../../passport/passport');
 
 //GET routes
 router.get('/', passport.authenticate('jwt', {session:false}), categoryController.getAll);
+router.get('/:id', passport.authenticate('jwt', {session:false}), categoryController.getById);
 router.get('/name/:name', passport.authenticate('jwt', {session:false}), categoryController.getByName);
 router.get('/store/:store', passport.authenticate('jwt', {session:false}), categoryController.getByStore);
 
