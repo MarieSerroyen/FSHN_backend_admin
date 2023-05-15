@@ -8,6 +8,7 @@ router.get('/', passport.authenticate('jwt', {session:false}), categoryControlle
 router.get('/:name', passport.authenticate('jwt', {session:false}), categoryController.getByName);
 
 //POST routes
+router.post('/', passport.authenticate('jwt', {session:false}), categoryController.createCategory);
 
 //PUT routes
 
