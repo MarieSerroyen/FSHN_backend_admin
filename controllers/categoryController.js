@@ -26,6 +26,22 @@ const getByName = async (req, res) => {
     }
 }
 
+//GET category by store
+const getByStore = async (req, res) => {
+    try {
+        const category = await Category.find({store: req.params.store});
+        if(!category) {
+            return res.status(404).send({status: "failed", message: "Category not found"});
+        } else {
+            return res.status(200).json({status: "success", message: "Category retrieved successfully.", data: category });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, category not retrieved", error: error });
+    }
+}
+
+
 //POST new category information
 const createCategory = async (req, res) => {
     try {
@@ -95,4 +111,4 @@ const deleteCategory = async (req, res) => {
 };         
 
 
-module.exports = { getAll, getByName, createCategory, updateCategory, deleteCategory };
+module.exports = { getAll, getByName, getByStore, createCategory, updateCategory, deleteCategory };

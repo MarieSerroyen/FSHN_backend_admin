@@ -99,6 +99,7 @@ const getByCategory = async (req, res) => {
     }
 };
 
+
 //POST new clothing information
 const create = async (req, res) => {
     try {
