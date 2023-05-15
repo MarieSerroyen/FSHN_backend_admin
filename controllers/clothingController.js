@@ -55,6 +55,28 @@ const getByBrand = async (req, res) => {
     }
 };
 
+//GET all categories
+const getCategories = async (req, res) => {
+    try {
+        Clothing.find().distinct('category')
+            .then(categories => {
+                if(!categories) {
+                    return res.status(404).send({status: "failed", message: "No categories found."});
+                } else {
+                    return res.status(200).json({status: "success", message: "Categories retrieved successfully.", data: categories });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, categories not retrieved", error: err });
+            }
+        );
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, categories not retrieved" });
+    }
+};
+
 //GET clothing by category
 const getByCategory = async (req, res) => {
     try {
@@ -187,4 +209,4 @@ const deleteClothing = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByBrand, getByCategory, create, update, addColors, addSizes, deleteClothing };
+module.exports = { getAll, getById, getByBrand, getCategories, getByCategory, create, update, addColors, addSizes, deleteClothing };
