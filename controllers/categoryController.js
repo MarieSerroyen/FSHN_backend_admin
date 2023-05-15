@@ -73,7 +73,26 @@ const updateCategory = async (req, res) => {
     }
 };
 
-         
+//DELETE category information
+const deleteCategory = async (req, res) => {
+    try {
+        Category.findByIdAndDelete({_id: req.params.id})
+        .then(category => {
+            if(!category) {
+                return res.status(404).send({status: "failed", message: "Category item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Category item deleted successfully.", data: category });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, category item not deleted", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, category not deleted", error: error });
+    }
+};         
 
 
-module.exports = { getAll, getByName, createCategory, updateCategory };
+module.exports = { getAll, getByName, createCategory, updateCategory, deleteCategory };

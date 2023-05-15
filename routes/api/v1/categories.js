@@ -14,5 +14,6 @@ router.post('/', passport.authenticate('jwt', {session:false}), categoryControll
 router.put('/:id', passport.authenticate('jwt', {session:false}), categoryController.updateCategory);
 
 //DELETE routes
+router.delete('/:id', passport.authenticate('jwt', {session:false}), categoryController.deleteCategory);
 
 module.exports = router;
