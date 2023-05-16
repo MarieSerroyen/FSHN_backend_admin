@@ -5,7 +5,7 @@ const storeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    logo : {
+    logo: {
         type: String,
         required: true
     },
@@ -19,6 +19,11 @@ const storeSchema = new mongoose.Schema({
     },
     slogan: {
         type: String,
+        required: false
+    },
+    date: {
+        type: Date,
+        default: Date.now,
         required: false
     }
 });
