@@ -37,6 +37,14 @@ const clothingSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
+    subCategories: {
+        type: Array,
+        required: true
+    },
+    collectionStore: {
+        type: String,
+        required: true
+    },
     brand: {
         type: String,
         required: true
