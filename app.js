@@ -11,6 +11,7 @@ const usersRouter = require('./routes/api/v1/users');
 const storeRouter = require('./routes/api/v1/stores');
 const clothingRouter = require('./routes/api/v1/clothing');
 const categoryRouter = require('./routes/api/v1/categories');
+const subCategoryRouter = require('./routes/api/v1/subCategories');
 
 
 mongoose.connect(process.env.conn || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
@@ -33,6 +34,7 @@ app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/stores', storeRouter);
 app.use('/api/v1/clothing', clothingRouter);
 app.use('/api/v1/categories', categoryRouter);
+app.use('/api/v1/subCategories', subCategoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
