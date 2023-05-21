@@ -15,8 +15,7 @@ router.post('/',passport.authenticate('jwt', {session:false}),subCategoryControl
 //PUT routes
 router.put('/:id',passport.authenticate('jwt', {session:false}),subCategoryController.updateSubCategory);
 
-
 //DELETE routes
-
+router.delete('/:id',passport.authenticate('jwt', {session:false}),subCategoryController.deleteSubCategory);
 
 module.exports = router;

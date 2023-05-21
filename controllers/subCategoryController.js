@@ -104,4 +104,25 @@ const updateSubCategory = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByName, getByStore, updateSubCategory, createSubCategory };
+//DELETE subCategory information
+const deleteSubCategory = async (req, res) => {
+    try {
+        SubCategory.findByIdAndDelete({_id: req.params.id})
+        .then(subCategory => {
+            if(!subCategory) {
+                return res.status(404).send({status: "failed", message: "Sub category item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Sub category item deleted successfully.", data: subCategory });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, sub category item not deleted", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, sub category not deleted", error: error });
+    }
+};       
+
+module.exports = { getAll, getById, getByName, getByStore, updateSubCategory, deleteSubCategory, createSubCategory };
