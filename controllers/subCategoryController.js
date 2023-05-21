@@ -25,6 +25,21 @@ const getById = async (req, res) => {
         return res.status(500).send({status: "failed", message: "Something went wrong, sub category not retrieved", error: error });
     }
 }
+
+//GET subCategory by name
+const getByName = async (req, res) => {
+    try {
+        const subCategory = await SubCategory.findOne({name: req.params.name});
+        if(!subCategory) {
+            return res.status(404).send({status: "failed", message: "Sub category not found"});
+        } else {
+            return res.status(200).json({status: "success", message: "Sub category retrieved successfully.", data: subCategory });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, sub category not retrieved", error: error });
+    }
+}
     
 
 //POST new subCategory information
@@ -52,4 +67,4 @@ const createSubCategory = async (req, res) => {
         return res.status(500).send({status: "failed", message: "Something went wrong, sub category item not created", error: error });
     }
 };
-module.exports = { getAll, getById, createSubCategory };
+module.exports = { getAll, getById, getByName, createSubCategory };
