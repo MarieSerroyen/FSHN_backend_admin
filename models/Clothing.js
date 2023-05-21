@@ -52,6 +52,11 @@ const clothingSchema = new mongoose.Schema({
     store: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+        required: false
     }
 });
 
