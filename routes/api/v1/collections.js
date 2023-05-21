@@ -9,13 +9,11 @@ router.get('/:id', passport.authenticate('jwt', {session:false}), collectionCont
 router.get('/name/:name', passport.authenticate('jwt', {session:false}), collectionController.getByName);
 router.get('/store/:store', passport.authenticate('jwt', {session:false}), collectionController.getByStore);
 
-
 //POST routes
 router.post('/', passport.authenticate('jwt', {session:false}), collectionController.createCollection);
 
-
 //PUT routes
-
+router.put('/:id', passport.authenticate('jwt', {session:false}), collectionController.updateCollection);
 
 //DELETE routes
 

@@ -82,4 +82,25 @@ const createCollection = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByName, getByStore, createCollection };
+//UPDATE collection information
+const updateCollection = async (req, res) => {
+    try {
+        Collection.findByIdAndUpdate({_id: req.params.id}, req.body)
+        .then(collection => {
+            if(!collection) {
+                return res.status(404).send({status: "failed", message: "Collection item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Collection item updated successfully.", data: collection });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, collection item not updated", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, category not updated", error: error });
+    }
+};
+
+module.exports = { getAll, getById, getByName, getByStore, createCollection, updateCollection };
