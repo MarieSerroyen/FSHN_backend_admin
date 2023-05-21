@@ -103,4 +103,26 @@ const updateCollection = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByName, getByStore, createCollection, updateCollection };
+//DELETE collection information
+const deleteCollection = async (req, res) => {
+    try {
+        Collection.findByIdAndDelete({_id: req.params.id})
+        .then(collection => {
+            if(!collection) {
+                return res.status(404).send({status: "failed", message: "Collection item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Collection item deleted successfully.", data: collection });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, collection item not deleted", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, collection not deleted", error: error });
+    }
+};         
+
+
+module.exports = { getAll, getById, getByName, getByStore, createCollection, updateCollection, deleteCollection };

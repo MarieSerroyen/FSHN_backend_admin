@@ -16,5 +16,6 @@ router.post('/', passport.authenticate('jwt', {session:false}), collectionContro
 router.put('/:id', passport.authenticate('jwt', {session:false}), collectionController.updateCollection);
 
 //DELETE routes
+router.delete('/:id', passport.authenticate('jwt', {session:false}), collectionController.deleteCollection);
 
 module.exports = router;
