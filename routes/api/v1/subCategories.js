@@ -12,8 +12,8 @@ router.get('/store/:store',passport.authenticate('jwt', {session:false}),subCate
 //POST routes
 router.post('/',passport.authenticate('jwt', {session:false}),subCategoryController.createSubCategory);
 
-
 //PUT routes
+router.put('/:id',passport.authenticate('jwt', {session:false}),subCategoryController.updateSubCategory);
 
 
 //DELETE routes

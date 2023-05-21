@@ -82,4 +82,26 @@ const createSubCategory = async (req, res) => {
         return res.status(500).send({status: "failed", message: "Something went wrong, sub category item not created", error: error });
     }
 };
-module.exports = { getAll, getById, getByName, getByStore, createSubCategory };
+
+//UPDATE subCategory information
+const updateSubCategory = async (req, res) => {
+    try {
+        SubCategory.findByIdAndUpdate({_id: req.params.id}, req.body)
+        .then(subCategory => {
+            if(!subCategory) {
+                return res.status(404).send({status: "failed", message: "Sub category item not found"});
+            } else {
+                return res.status(200).json({status: "success", message: "Sub category item updated successfully.", data: subCategory });
+            }
+        })
+        .catch(err => {
+            return res.status(400).send({status: "failed", message: "Something went wrong, sub category item not updated", error: err });
+        }
+    );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, category not updated", error: error });
+    }
+};
+
+module.exports = { getAll, getById, getByName, getByStore, updateSubCategory, createSubCategory };
