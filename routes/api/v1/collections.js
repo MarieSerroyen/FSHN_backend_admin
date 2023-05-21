@@ -7,6 +7,7 @@ const passport = require('../../../passport/passport');
 router.get('/', passport.authenticate('jwt', {session:false}), collectionController.getAll);
 router.get('/:id', passport.authenticate('jwt', {session:false}), collectionController.getById);
 router.get('/name/:name', passport.authenticate('jwt', {session:false}), collectionController.getByName);
+router.get('/store/:store', passport.authenticate('jwt', {session:false}), collectionController.getByStore);
 
 
 //POST routes

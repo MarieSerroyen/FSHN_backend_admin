@@ -41,6 +41,21 @@ const getByName = async (req, res) => {
     }
 }
 
+//GET collection by store
+const getByStore = async (req, res) => {
+    try {
+        const collection = await Collection.find({store: req.params.store});
+        if(!collection) {
+            return res.status(404).send({status: "failed", message: "Collection not found"});
+        } else {
+            return res.status(200).json({status: "success", message: "Collection retrieved successfully.", data: collection });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, collection not retrieved", error: error });
+    }
+}
+
 //POST new collection information
 const createCollection = async (req, res) => {
     try {
@@ -67,4 +82,4 @@ const createCollection = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByName, createCollection };
+module.exports = { getAll, getById, getByName, getByStore, createCollection };
