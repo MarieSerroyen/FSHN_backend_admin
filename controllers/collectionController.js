@@ -1,5 +1,16 @@
 const Collection = require('../models/Collection');
 
+//GET all collections
+const getAll = async (req, res) => {
+    try {
+        const collections = await Collection.find();
+        return res.status(200).json({status: "success", message: "Collections retrieved successfully.", data: collections });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, collections not retrieved", error: error });
+    }
+}
+
 //POST new collection information
 const createCollection = async (req, res) => {
     try {
@@ -26,4 +37,4 @@ const createCollection = async (req, res) => {
     }
 };
 
-module.exports = { createCollection };
+module.exports = { getAll, createCollection };

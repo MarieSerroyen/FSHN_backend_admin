@@ -4,6 +4,7 @@ const collectionController = require('../../../controllers/collectionController'
 const passport = require('../../../passport/passport');
 
 //GET routes
+router.get('/', passport.authenticate('jwt', {session:false}), collectionController.getAll);
 
 
 //POST routes
