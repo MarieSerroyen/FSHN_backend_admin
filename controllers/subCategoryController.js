@@ -55,19 +55,34 @@ const getByStore = async (req, res) => {
         return res.status(500).send({status: "failed", message: "Something went wrong, sub category not retrieved", error: error });
     }
 }
+
+//GET subCategory by category
+const getByCategory = async (req, res) => {
+    try {
+        const subCategory = await SubCategory.find({category: req.params.category});
+        if(!subCategory) {
+            return res.status(404).send({status: "failed", message: "Sub category not found"});
+        } else {
+            return res.status(200).json({status: "success", message: "Sub category retrieved successfully.", data: subCategory });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, sub category not retrieved", error: error });
+    }
+}
     
 
 //POST new subCategory information
 const createSubCategory = async (req, res) => {
     try {
-        const { name, image, store } = req.body;
+        const { name, image, store, category } = req.body;
 
          //Check if fields are empty
-         if(!name || !image || !store) {
+         if(!name || !image || !store || !category) {
             return res.status(404).send({status: "failed", message: "Please fill in required fields"});
         }
 
-        const subCategory = new SubCategory({ name, image, store});
+        const subCategory = new SubCategory({ name, image, store, category});
 
         subCategory.save()
             .then(subCategory => {
@@ -125,4 +140,4 @@ const deleteSubCategory = async (req, res) => {
     }
 };       
 
-module.exports = { getAll, getById, getByName, getByStore, updateSubCategory, deleteSubCategory, createSubCategory };
+module.exports = { getAll, getById, getByName, getByStore, getByCategory, updateSubCategory, deleteSubCategory, createSubCategory };
