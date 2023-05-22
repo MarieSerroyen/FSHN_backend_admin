@@ -58,8 +58,7 @@ const clothingSchema = new mongoose.Schema({
         required: true
     },
     store: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Store',
+        type: String,
         required: true
     },
     date: {
