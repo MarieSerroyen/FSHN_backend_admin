@@ -123,25 +123,25 @@ const login = async (req, res) => {
         }
 
         User.findOne({ email: email })
-            .then(user => {
-                if(!user) {
-                    return res.status(404).send({status: "failed", message: "User not found"});
-                } else {
-                    const isMatch = bcrypt.compare(password, user.password);
-        
-                    if(!isMatch) {
-                        return res.status(400).send({status: "failed", message: "Invalid credentials"});
-                    } else {
+        .then(user => {
+            if(!user) {
+                return res.status(404).send({status: "failed", message: "User not found"});
+            } else {
+
+            // Check if password matches
+            bcrypt.compare(password, user.password)
+                .then(isMatch => {
+                    if(isMatch) {
                         const jwtToken = jwt.sign({ id: user._id }, config.get('jwt.secret'));
-        
+
                         return res.status(200).json({status: "success", message: "User logged in successfully.", data: user, token: jwtToken });
+                    } else {
+                        return res.status(400).json({ status: "failed", message: "Your username or password was incorrect.", devMessage: "This password is incorrect." });
                     }
                 }
-            })
-            .catch(err => {
-                return res.status(400).send({status: "failed", message: "Something went wrong, user not logged in", error: err });
-            });
-
+            );
+        }
+        })
     } catch (error) {
         console.log(error);
         res.status(500).send({status: "failed", message: "Something went wrong, user not logged in", error: error });
@@ -198,9 +198,10 @@ const changePassword = async (req, res) => {
     }
 };
 
-/*const authenticate =  (req, res) => {
+const authenticate =  (req, res) => {
+    return res.status(200).json({ status: "success", message: "You are authenticated." });
     //return res.status(200).json({status: "success", message: "User authenticated successfully."});
-    try {
+    /*try {
         const token = req.headers.authorization.substring(7, req.headers.authorization.length);
         console.log(token);
 
@@ -239,7 +240,7 @@ const changePassword = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send({status: "failed", message: "Something went wrong, user not authenticated", error: error });
-    }
-};*/
+    }*/
+};
 
-module.exports = { getAll, getById, getByName, create, deleteUser, login, changePassword };
+module.exports = { getAll, getById, getByName, create, deleteUser, login, changePassword, authenticate };
