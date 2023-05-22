@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
         required: false
     },
+    storeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Store',
+        required: false
+    },
     role: {
         type: String,
         default: 'store',
