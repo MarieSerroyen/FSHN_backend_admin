@@ -11,6 +11,10 @@ const orderSchema = new mongoose.Schema({
         ref: 'Clothing',
         required: true
     },
+    clientNumber:{
+        type: Number,
+        required: true
+    },
     amount: {
         type: Number,
         default: 1,

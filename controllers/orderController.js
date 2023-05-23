@@ -45,19 +45,30 @@ const getByStoreId = async (req, res) => {
     }
 }
 
+//GET order by client number
+const getByClientNumber = async (req, res) => {
+    try {
+        const order = await Order.find({clientNumber: req.params.clientNumber});
+        return res.status(200).json({status: "success", message: "Order retrieved successfully.", data: order });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, order not retrieved", error: error });
+    }
+}
+
 
 //POST new order information
 const create = async (req, res) => {
     try {
-        const { storeId, productId, amount } = req.body;
+        const { storeId, productId, amount, clientNumber } = req.body;
         const orderNumber = generator.generate(10);
 
         //Check if fields are empty
-        if(!storeId || !productId || !orderNumber) {
+        if(!storeId || !productId || !clientNumber) {
             return res.status(404).send({status: "failed", message: "Please fill all fields"});
         }
 
-        const order = new Order({ storeId, productId, amount, orderNumber });
+        const order = new Order({ storeId, productId, amount, orderNumber, clientNumber });
 
         order.save()
             .then(order => {
@@ -117,4 +128,4 @@ const deleteOrder = async (req, res) => {
 
 
 
-module.exports = { getAll, getById, getByOrderNumber, getByStoreId, create, update, deleteOrder };
+module.exports = { getAll, getById, getByOrderNumber, getByStoreId, getByClientNumber, create, update, deleteOrder };
