@@ -1,4 +1,5 @@
 const Order = require('../models/Order');
+const generator = require('generate-serial-number');
 
 //GET all orders
 const getAll = async (req, res) => {
@@ -48,7 +49,8 @@ const getByStoreId = async (req, res) => {
 //POST new order information
 const create = async (req, res) => {
     try {
-        const { storeId, productId, amount, orderNumber } = req.body;
+        const { storeId, productId, amount } = req.body;
+        const orderNumber = generator.generate(10);
 
         //Check if fields are empty
         if(!storeId || !productId || !orderNumber) {
