@@ -10,7 +10,8 @@ const categorySchema = new mongoose.Schema({
         required: true
     },
     store: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Store',
         required: true
     },
     date: {
