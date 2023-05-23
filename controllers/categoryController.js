@@ -65,17 +65,17 @@ const createCategory = async (req, res) => {
          //Check if fields are empty
          if(!name || !image || !store) {
             return res.status(404).send({status: "failed", message: "Please fill in required fields"});
-        }
+            }
 
-        const category = new Category({ name, image, store});
+            const category = new Category({ name, image, store});
 
-        category.save()
-            .then(category => {
-                return res.status(200).json({status: "success", message: "Category created successfully.", data: category });
-            })
-            .catch(err => {
-            return res.status(400).send({status: "failed", message: "Something went wrong, category item not created", error: err });
-            });
+            category.save()
+                .then(category => {
+                    return res.status(200).json({status: "success", message: "Category created successfully.", data: category });
+                })
+                .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, category item not created", error: err });
+                });
 
     } catch (error) {
         console.log(error);
