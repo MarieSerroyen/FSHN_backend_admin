@@ -20,6 +20,14 @@ const orderSchema = new mongoose.Schema({
         default: 1,
         required: false
     },
+    size: {
+        type: String,
+        required: false
+    },
+    color: {
+        type: String,
+        required: false
+    },
     orderNumber: {
         type: Number,
         required: true
