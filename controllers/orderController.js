@@ -1,5 +1,16 @@
 const Order = require('../models/Order');
 
+//GET all orders
+const getAll = async (req, res) => {
+    try {
+        const orders = await Order.find();
+        return res.status(200).json({status: "success", message: "Orders retrieved successfully.", data: orders });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, orders not retrieved", error: error });
+    }
+}
+
 //POST new order information
 const create = async (req, res) => {
     try {
@@ -26,4 +37,4 @@ const create = async (req, res) => {
     }
 }
 
-module.exports = { create };
+module.exports = { getAll, create };
