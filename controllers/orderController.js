@@ -92,5 +92,27 @@ const update = async (req, res) => {
     }
 }
 
+//DELETE order information
+const deleteOrder = async (req, res) => {
+    try {
+        Order.findByIdAndDelete({_id: req.params.id})
+            .then(order => {
+                if(!order) {
+                    return res.status(404).send({status: "failed", message: "Order not found"});
+                } else {
+                    return res.status(200).json({status: "success", message: "Order deleted successfully.", data: order });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, order not deleted", error: err });
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, order not deleted", error: error });
+    }
+}
 
-module.exports = { getAll, getById, getByOrderNumber, getByStoreId, create, update };
+
+
+module.exports = { getAll, getById, getByOrderNumber, getByStoreId, create, update, deleteOrder };
