@@ -22,6 +22,18 @@ const getById = async (req, res) => {
     }
 }
 
+//GET order by order number
+const getByOrderNumber = async (req, res) => {
+    try {
+        const order = await Order.findOne({orderNumber: req.params.orderNumber});
+        return res.status(200).json({status: "success", message: "Order retrieved successfully.", data: order });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, order not retrieved", error: error });
+    }
+}
+
+
 //POST new order information
 const create = async (req, res) => {
     try {
@@ -48,4 +60,4 @@ const create = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getById ,create };
+module.exports = { getAll, getById, getByOrderNumber, create };
