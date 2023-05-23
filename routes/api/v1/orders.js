@@ -12,4 +12,9 @@ router.get('/store/:storeId', passport.authenticate('jwt', {session: false}), or
 //POST routes
 router.post('/', passport.authenticate('jwt', {session: false}), orderController.create);
 
+//PUT routes
+router.put('/:id', passport.authenticate('jwt', {session: false}), orderController.update);
+
+//DELETE routes
+
 module.exports = router;

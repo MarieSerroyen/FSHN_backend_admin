@@ -71,4 +71,26 @@ const create = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getById, getByOrderNumber, getByStoreId, create };
+//UPDATE order information
+const update = async (req, res) => {
+    try {
+        Order.findByIdAndUpdate({_id: req.params.id}, req.body)
+            .then(order => {
+                if(!order) {
+                    return res.status(404).send({status: "failed", message: "Order not found"});
+                } else {
+                    return res.status(200).json({status: "success", message: "Order updated successfully.", data: order });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, order not updated", error: err });
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, order not updated", error: error });
+    }
+}
+
+
+module.exports = { getAll, getById, getByOrderNumber, getByStoreId, create, update };
