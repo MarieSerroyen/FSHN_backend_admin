@@ -1,5 +1,4 @@
 const Cart = require('../models/Cart');
-const generator = require('generate-serial-number');
 
 //GET all carts
 const getAll = async (req, res) => {
@@ -22,17 +21,6 @@ const getById = async (req, res) => {
         res.status(500).send({status: "failed", message: "Something went wrong, cart not retrieved", error: error });
     }
 }
-
-//GET order by order number
-/*const getByOrderNumber = async (req, res) => {
-    try {
-        const order = await Order.findOne({orderNumber: req.params.orderNumber});
-        return res.status(200).json({status: "success", message: "Order retrieved successfully.", data: order });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({status: "failed", message: "Something went wrong, order not retrieved", error: error });
-    }
-}*/
 
 //GET cart by store id
 const getByStoreId = async (req, res) => {
@@ -57,7 +45,7 @@ const getByClientNumber = async (req, res) => {
 }
 
 
-//POST new order information
+//POST new cart information
 const create = async (req, res) => {
     try {
         const { storeId, productId, amount, clientNumber, size, color, name, price, image } = req.body;
@@ -83,7 +71,7 @@ const create = async (req, res) => {
     }
 }
 
-//UPDATE order information
+//UPDATE cart information
 const update = async (req, res) => {
     try {
         Cart.findByIdAndUpdate({_id: req.params.id}, req.body)
@@ -104,7 +92,7 @@ const update = async (req, res) => {
     }
 }
 
-//DELETE order information
+//DELETE cart information
 const deleteCart = async (req, res) => {
     try {
         Cart.findByIdAndDelete({_id: req.params.id})
