@@ -23,11 +23,22 @@ const getById = async (req, res) => {
     }
 }
 
+//GET order by order number
+const getByOrderNumber = async (req, res) => {
+    try {
+        const order = await Order.findOne({orderNumber: req.params.orderNumber});
+        return res.status(200).json({status: "success", message: "Order retrieved successfully.", data: order });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, order not retrieved", error: error });
+    }
+}
+
 //POST new order
 const create = (req, res) => {
     try {
         const { storeId, productIds, clientNumber } = req.body;
-        const orderNumber = generator.generate(10);
+        const orderNumber = generator.generate(4);
 
          //Check if fields are empty
          if(!storeId || !productIds || !clientNumber) {
@@ -51,4 +62,4 @@ const create = (req, res) => {
 }
 
 
-module.exports = {getAll, getById, create };
+module.exports = {getAll, getById, getByOrderNumber, create };
