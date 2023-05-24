@@ -1,6 +1,17 @@
 const Order = require('../models/Order');
 const generator = require('generate-serial-number');
 
+//GET all orders
+const getAll = async (req, res) => {
+    try {
+        const orders = await Order.find();
+        return res.status(200).json({status: "success", message: "Orders retrieved successfully.", data: orders });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, orders not retrieved", error: error });
+    }
+}
+
 //POST new order
 const create = (req, res) => {
     try {
@@ -29,4 +40,4 @@ const create = (req, res) => {
 }
 
 
-module.exports = { create };
+module.exports = {getAll, create };
