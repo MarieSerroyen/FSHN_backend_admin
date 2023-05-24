@@ -34,6 +34,17 @@ const getByOrderNumber = async (req, res) => {
     }
 }
 
+//GET order by store id
+const getByStoreId = async (req, res) => {
+    try {
+        const order = await Order.find({storeId: req.params.storeId});
+        return res.status(200).json({status: "success", message: "Order retrieved successfully.", data: order });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status: "failed", message: "Something went wrong, order not retrieved", error: error });
+    }
+}
+
 //POST new order
 const create = (req, res) => {
     try {
@@ -62,4 +73,4 @@ const create = (req, res) => {
 }
 
 
-module.exports = {getAll, getById, getByOrderNumber, create };
+module.exports = {getAll, getById, getByOrderNumber, getByStoreId, create };
