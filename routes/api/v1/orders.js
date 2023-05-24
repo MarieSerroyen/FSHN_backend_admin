@@ -8,6 +8,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), orderController.
 router.get('/:id', passport.authenticate('jwt', {session: false}), orderController.getById);
 router.get('/number/:orderNumber', passport.authenticate('jwt', {session: false}), orderController.getByOrderNumber);
 router.get('/store/:storeId', passport.authenticate('jwt', {session: false}), orderController.getByStoreId);
+router.get('/client/:clientNumber', passport.authenticate('jwt', {session: false}), orderController.getByClientNumber);
 
 //POST routes
 router.post('/', passport.authenticate('jwt', {session: false}), orderController.create);
