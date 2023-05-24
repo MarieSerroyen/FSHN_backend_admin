@@ -61,7 +61,6 @@ const getByClientNumber = async (req, res) => {
 const create = async (req, res) => {
     try {
         const { storeId, productId, amount, clientNumber, size, color, name, price, image } = req.body;
-        //const orderNumber = generator.generate(10);
 
         //Check if fields are empty
         if(!storeId || !productId || !clientNumber) {
