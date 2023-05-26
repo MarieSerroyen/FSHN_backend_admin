@@ -13,8 +13,12 @@ const clothingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    subImages: {
-        type: Array,
+    modelImage: {
+        type: String,
+        required: true
+    },
+    modelImage2: {
+        type: String,
         required: true
     },
     sizes: {
@@ -34,16 +38,19 @@ const clothingSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: Array,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         required: true
     },
-    subCategories: {
-        type: Array,
+    subCategories: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SubCategory',
         required: true
-    },
+    }],
     collectionStore: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Collection',
+        required: false
     },
     brand: {
         type: String,
@@ -58,7 +65,8 @@ const clothingSchema = new mongoose.Schema({
         required: true
     },
     store: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Store',
         required: true
     },
     date: {
