@@ -100,6 +100,27 @@ const getByCategory = async (req, res) => {
     }
 };
 
+//GET clothing by subcategory ID
+const getBySubCategory = async (req, res) => {
+    try {
+        Clothing.find({subCategories: req.params.subcategory})
+            .then(clothing => {
+                if(!clothing) {
+                    return res.status(404).send({status: "failed", message: "No clothing items found within this subcategory."});
+                } else {
+                    return res.status(200).json({status: "success", message: "Clothing items retrieved successfully.", data: clothing });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, clothing items not retrieved", error: err });
+            }
+        );
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({status: "failed", message: "Something went wrong, clothing items not retrieved" });
+    }
+};
 
 //POST new clothing information
 const create = async (req, res) => {
@@ -211,4 +232,4 @@ const deleteClothing = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByBrand, getCategories, getByCategory, create, update, addColors, addSizes, deleteClothing };
+module.exports = { getAll, getById, getByBrand, getCategories, getByCategory, getBySubCategory, create, update, addColors, addSizes, deleteClothing };
