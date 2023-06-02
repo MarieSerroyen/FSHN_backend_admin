@@ -132,7 +132,7 @@ const login = async (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if(isMatch) {
-                        const jwtToken = jwt.sign({ id: user._id }, config.get('jwt.secret'));
+                        const jwtToken = jwt.sign({ id: user._id }, process.env.SECRET || config.get('jwt.secret'));
 
                         return res.status(200).json({status: "success", message: "User logged in successfully.", data: user, token: jwtToken });
                     } else {
@@ -212,7 +212,7 @@ const authenticate =  (req, res) => {
     }
 
     //Verify token with jwt.verify
-    jwt.verify(token, config.get('jwt.secret'), (err, decoded) => {
+    jwt.verify(token, process.env.SECRET || config.get('jwt.secret'), (err, decoded) => {
 
         if(err) {
             return res.status(401).send({status: "failed", message: "Token is not valid"});

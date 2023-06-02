@@ -17,7 +17,7 @@ const cartRouter = require('./routes/api/v1/carts');
 const orderRouter = require('./routes/api/v1/orders');
 
 
-mongoose.connect(process.env.conn || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.CONN || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
 const app = express();
 
 // view engine setup
