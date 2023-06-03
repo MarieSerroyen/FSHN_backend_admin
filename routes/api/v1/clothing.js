@@ -10,6 +10,7 @@ router.get('/:id', passport.authenticate('jwt', {session:false}), clothingContro
 router.get('/brand/:brand', passport.authenticate('jwt', {session:false}), clothingController.getByBrand);
 router.get('/category/:category', passport.authenticate('jwt', {session:false}), clothingController.getByCategory);
 router.get('/subcategory/:subcategory', passport.authenticate('jwt', {session:false}), clothingController.getBySubCategory);
+router.get('/collection/:collection', passport.authenticate('jwt', {session:false}), clothingController.getByCollection);
 
 //POST routes
 router.post('/', passport.authenticate('jwt', {session:false}), clothingController.create);
