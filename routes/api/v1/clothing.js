@@ -7,10 +7,10 @@ const passport = require('../../../passport/passport');
 router.get('/', passport.authenticate('jwt', {session:false}), clothingController.getAll);
 router.get('/categories', passport.authenticate('jwt', {session:false}), clothingController.getCategories);
 router.get('/:id', passport.authenticate('jwt', {session:false}), clothingController.getById);
-router.get('/brand/:brand', passport.authenticate('jwt', {session:false}), clothingController.getByBrand);
 router.get('/category/:category', passport.authenticate('jwt', {session:false}), clothingController.getByCategory);
 router.get('/subcategory/:subcategory', passport.authenticate('jwt', {session:false}), clothingController.getBySubCategory);
 router.get('/collection/:collection', passport.authenticate('jwt', {session:false}), clothingController.getByCollection);
+router.get('/store/:store', passport.authenticate('jwt', {session:false}), clothingController.getByStore);
 
 //POST routes
 router.post('/', passport.authenticate('jwt', {session:false}), clothingController.create);

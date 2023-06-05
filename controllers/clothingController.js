@@ -34,13 +34,13 @@ const getById = async (req, res) => {
     }
 };
 
-//GET clothing by brand
-const getByBrand = async (req, res) => {
+//GET clothing by store
+const getByStore = async (req, res) => {
     try {
-        Clothing.find({brand: req.params.brand})
+        Clothing.find({store: req.params.store})
             .then(clothing => {
                 if(!clothing) {
-                    return res.status(404).send({status: "failed", message: "No clothing items found with this brand."});
+                    return res.status(404).send({status: "failed", message: "No clothing items found from this store."});
                 } else {
                     return res.status(200).json({status: "success", message: "Clothing items retrieved successfully.", data: clothing });
                 }
@@ -254,4 +254,4 @@ const deleteClothing = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByBrand, getCategories, getByCategory, getBySubCategory, getByCollection, create, update, addColors, addSizes, deleteClothing };
+module.exports = { getAll, getById, getByStore, getCategories, getByCategory, getBySubCategory, getByCollection, create, update, addColors, addSizes, deleteClothing };
