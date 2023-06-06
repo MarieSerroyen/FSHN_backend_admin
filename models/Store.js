@@ -7,7 +7,7 @@ const storeSchema = new mongoose.Schema({
     },
     logo: {
         type: String,
-        required: true
+        required: false
     },
     email: {
         type: String,

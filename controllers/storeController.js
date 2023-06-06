@@ -61,7 +61,7 @@ const create = async (req, res) => {
         const { name, logo, email, phone, primaryColor, secondaryColor, slogan } = req.body;
 
         //Check if fields are empty
-        if(!name || !logo || !email || !phone) {
+        if(!name || !email || !phone) {
             return res.status(404).send({status: "failed", message: "Please fill in required fields"});
         }
 
