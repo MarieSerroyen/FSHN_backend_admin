@@ -58,14 +58,14 @@ const getByName = async (req, res) => {
 //POST new brand information
 const create = async (req, res) => {
     try {
-        const { name, logo, primaryColor, secondaryColor, slogan } = req.body;
+        const { name, logo, email, phone, primaryColor, secondaryColor, slogan } = req.body;
 
         //Check if fields are empty
-        if(!name || !logo || !primaryColor) {
+        if(!name || !logo || !email || !phone) {
             return res.status(404).send({status: "failed", message: "Please fill in required fields"});
         }
 
-        const store = new Store({ name, logo, primaryColor, secondaryColor, slogan });
+        const store = new Store({ name, logo, email, phone, primaryColor, secondaryColor, slogan });
 
         store.save()
             .then(store => {

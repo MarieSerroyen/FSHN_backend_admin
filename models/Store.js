@@ -9,9 +9,17 @@ const storeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    primaryColor: {
+    email: {
         type: String,
         required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    primaryColor: {
+        type: String,
+        required: false
     },
     secondaryColor: {
         type: String,
