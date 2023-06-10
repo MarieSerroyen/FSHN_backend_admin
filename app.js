@@ -16,6 +16,8 @@ const collectionRouter = require('./routes/api/v1/collections');
 const cartRouter = require('./routes/api/v1/carts');
 const orderRouter = require('./routes/api/v1/orders');
 
+const allowedOrigins = ['http://localhost:3000', 'https://interface.fshn.be/'];
+
 
 mongoose.connect(process.env.CONN || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
 const app = express();
@@ -24,7 +26,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors({origin: true}));
+app.use(cors({origin: allowedOrigins}));
 
 app.use(logger('dev'));
 app.use(express.json());
