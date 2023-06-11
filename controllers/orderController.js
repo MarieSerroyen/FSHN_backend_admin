@@ -59,7 +59,7 @@ const getByClientNumber = async (req, res) => {
 //POST new order
 const create = (req, res) => {
     try {
-        const { storeId, productIds, clientNumber, amount } = req.body;
+        const { storeId, productIds, clientNumber, amount, status } = req.body;
         const orderNumber = generator.generate(4);
 
          //Check if fields are empty
@@ -67,7 +67,7 @@ const create = (req, res) => {
             return res.status(404).send({status: "failed", message: "Please fill in required fields"});
             }
 
-            const order = new Order({ storeId, productIds, clientNumber, orderNumber, amount });
+            const order = new Order({ storeId, productIds, clientNumber, orderNumber, amount, status });
 
             order.save()
                 .then(order => {
