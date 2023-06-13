@@ -14,6 +14,7 @@ router.get('/store/:store', passport.authenticate('jwt', {session:false}), cloth
 
 //POST routes
 router.post('/', passport.authenticate('jwt', {session:false}), clothingController.create);
+router.post('/subcategory/:subcategory', passport.authenticate('jwt', {session:false}), clothingController.getFilteredBySubCategory);
 
 //PUT routes
 router.put('/:id', passport.authenticate('jwt', {session:false}), clothingController.update);

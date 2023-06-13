@@ -73,7 +73,25 @@ const clothingSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
         required: false
-    }
+    },
+    verticalOffset: {
+        type: Number,
+        required: true
+    },
+    horizontalOffset: {
+        type: Number,
+        required: true
+    },
+    mappingImage: {
+        type: String,
+        required: true
+    },
+    clothingType: {
+        type: String,
+        required: true,
+        enum: ['top', 'bottom'],
+        default: 'top'
+    },
 });
 
 const Clothing = mongoose.model('Clothing', clothingSchema);

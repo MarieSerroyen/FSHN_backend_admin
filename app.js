@@ -15,19 +15,14 @@ const subCategoryRouter = require('./routes/api/v1/subCategories');
 const collectionRouter = require('./routes/api/v1/collections');
 const cartRouter = require('./routes/api/v1/carts');
 const orderRouter = require('./routes/api/v1/orders');
-
-const allowedOrigins = ['http://localhost:3000', 'https://interface.fshn.be/'];
-
+const app = express();
 
 mongoose.connect(process.env.CONN || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
-const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 app.use(cors({origin: '*'}));
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

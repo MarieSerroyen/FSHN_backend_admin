@@ -1,5 +1,6 @@
 const c = require('config');
 const Clothing = require('../models/Clothing');
+const e = require('express');
 
 //GET all clothing with filter
 const getAll = async (req, res) => {
@@ -170,6 +171,72 @@ const create = async (req, res) => {
     }
 };
 
+const getFilteredBySubCategory = async (req, res) => {
+    try {
+        console.log(req.body);
+
+        let filter = req.body;
+        let sort; 
+        filter.subCategories = req.params.subcategory;
+
+        if (filter.colors) {
+            filter.colors = {$in: filter.colors}
+        }
+
+        if (filter.sizes) {
+            filter.sizes = {$in: filter.sizes}
+        }
+
+        if (filter.sort){
+            switch (filter.sort) {
+                case 'Lowest price':
+                    sort = {price: 1}
+                    break;
+                case 'Highest price':
+                    sort = {price: -1}
+                    break;
+                case 'New':
+                    sort = { "$natural": 1 }
+                    break;
+                case 'Promo':
+                    sort = { "$natural": 1 }
+                    break;
+                default:
+                    sort = { "$natural": 1 }
+                    break;
+            }
+            delete filter.sort;
+
+        } else {
+            sort = { "$natural": 1 }
+        }
+
+        // if (filter.price) {
+        //     filter.price = {$lte: filter.price.max.toString(), $gte: filter.price.min.toString()}
+        // }
+
+        console.log(filter);
+        
+        Clothing.find(filter).sort(sort)
+
+        // Clothing.find({subCategories: req.params.subcategory})
+            .then(clothing => {
+                if(!clothing) {
+                    return res.status(404).send({status: "failed", message: "No clothing items found within this subcategory."});
+                } else {
+                    return res.status(200).json({status: "success", message: "Clothing items retrieved successfully.", data: clothing });
+                }
+            })
+            .catch(err => {
+                return res.status(400).send({status: "failed", message: "Something went wrong, clothing items not retrieved", error: err });
+            }
+        );
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({status: "failed", message: "Something went wrong, clothing items not retrieved" });
+        }
+};
+
 //UPDATE clothing information by id
 const update = async (req, res) => {
     try {
@@ -254,4 +321,4 @@ const deleteClothing = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, getByStore, getCategories, getByCategory, getBySubCategory, getByCollection, create, update, addColors, addSizes, deleteClothing };
+module.exports = { getAll, getById, getByStore, getCategories, getByCategory, getBySubCategory, getByCollection, create, getFilteredBySubCategory, update, addColors, addSizes, deleteClothing };
