@@ -22,7 +22,8 @@ mongoose.connect(process.env.CONN || config.get('database.conn'), {useNewUrlPars
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(cors({origin: '*'}));
+app.options('*', cors());
+app.use(cors({origin: true, credentials: true, 'Access-Control-Allow-Origin': '*'}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
