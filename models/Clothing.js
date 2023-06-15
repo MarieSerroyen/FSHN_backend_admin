@@ -76,19 +76,19 @@ const clothingSchema = new mongoose.Schema({
     },
     verticalOffset: {
         type: Number,
-        required: true
+        required: false
     },
     horizontalOffset: {
         type: Number,
-        required: true
+        required: false
     },
     mappingImage: {
         type: String,
-        required: true
+        required: false
     },
     clothingType: {
         type: String,
-        required: true,
+        required: false,
         enum: ['top', 'bottom'],
         default: 'top'
     },
