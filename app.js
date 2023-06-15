@@ -7,7 +7,8 @@ const logger = require('morgan');
 const cors = require ('cors');
 const config = require('config');
 
-mongoose.connect(process.env.CONN || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
+// mongoose.connect(process.env.CONN || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.CONN, {useNewUrlParser: true, useUnifiedTopology: true})
 
 const usersRouter = require('./routes/api/v1/users');
 const storeRouter = require('./routes/api/v1/stores');
