@@ -7,6 +7,8 @@ const logger = require('morgan');
 const cors = require ('cors');
 const config = require('config');
 
+mongoose.connect(process.env.CONN || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
+
 const usersRouter = require('./routes/api/v1/users');
 const storeRouter = require('./routes/api/v1/stores');
 const clothingRouter = require('./routes/api/v1/clothing');
@@ -16,8 +18,19 @@ const collectionRouter = require('./routes/api/v1/collections');
 const cartRouter = require('./routes/api/v1/carts');
 const orderRouter = require('./routes/api/v1/orders');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect(process.env.CONN || config.get('database.conn'), {useNewUrlParser: true, useUnifiedTopology: true})
+
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.CONN);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
+}
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -55,5 +68,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
+})
 
 module.exports = app;
