@@ -70,9 +70,7 @@ app.use(function(err, req, res, next) {
 });
 
 connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log("listening for requests");
-    })
+    console.log('DONE and ready to go!');
 })
 
 module.exports = app;
