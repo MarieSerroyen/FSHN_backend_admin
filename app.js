@@ -22,15 +22,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const connectDB = async () => {
-    try {
-        const conn = await mongoose.connect(process.env.CONN);
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
-    } catch (error) {
-        console.log(error);
-        process.exit(1);
-    }
-}
+// const connectDB = async () => {
+//     try {
+//         const conn = await mongoose.connect(process.env.CONN);
+//         console.log(`MongoDB Connected: ${conn.connection.host}`);
+//     } catch (error) {
+//         console.log(error);
+//         process.exit(1);
+//     }
+// }
 
 
 // view engine setup
@@ -70,8 +70,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-connectDB().then(() => {
-    console.log('DONE and ready to go!');
-})
+// connectDB().then(() => {
+//     console.log('DONE and ready to go!');
+// })
 
 module.exports = app;
